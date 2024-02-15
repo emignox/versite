@@ -1,12 +1,13 @@
 // import Login from "./components/login";
 import Registration from "./components/signup";
+// import Intro from "./components/introPage";
 
 function App() {
   return (
     <div>
-      <h1 className=" text-center">Whisper</h1>
       {/* <Login /> */}
       <Registration />
+      {/* <Intro /> */}
     </div>
   );
 }

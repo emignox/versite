@@ -1,7 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Alegreya+SC:ital,wght@0,400;0,500;0,700;0,800;0,900;1,400;1,500;1,700;1,800;1,900&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 body {
-  background-color: rgb(133, 133, 133);
+  background-color: #e4e5da;
+  font-family: "Alegreya SC", serif;
+}
+/* CSS */
+/* CSS */
+/* CSS */
+/* CSS */
+@keyframes fillEffect {
+  0% {
+    background-position: 100%;
+  }
+  100% {
+    background-position: 0%;
+  }
+}
+
+.fillEffect {
+  background: linear-gradient(to right, #00349b 50%, transparent 50%);
+  background-size: 200% 100%;
+  background-position: 100%;
+  transition: background 1s;
+  animation: fillEffect 2s forwards;
 }
