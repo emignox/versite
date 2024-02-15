@@ -5,7 +5,7 @@ const client = require("./db");
 const server = http.createServer(app);
 const cors = require("cors");
 const userRouter = require("./routes/route-user");
-const auth = require("./routes/route-auth"); // Importa il router
+const auth = require("./routes/route-auth");
 
 app.use(cors());
 app.use(express.json());
