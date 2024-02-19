@@ -8,6 +8,7 @@ const userRouter = require("./routes/route-user");
 const auth = require("./routes/route-auth");
 const Post = require("./routes/route-post");
 const getPost = require("./routes/route-getPost");
+const getUser = require("./routes/route-get-user");
 
 app.use(cors());
 app.use(express.json());
@@ -23,6 +24,7 @@ app.use("/api/auth", auth);
 app.use("/api/post", Post);
 //GET POST BY ID
 app.use("/api/getPost", getPost);
+app.use("/api/getUser", getUser);
 
 if (server.listen(3000)) {
   console.log("server is listening on port 3000");

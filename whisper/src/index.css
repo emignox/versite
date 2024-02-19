@@ -4,13 +4,10 @@
 @tailwind utilities;
 
 body {
-  background-color: #e4e5da;
+  background-color: #c9caba;
   font-family: "Alegreya SC", serif;
 }
-/* CSS */
-/* CSS */
-/* CSS */
-/* CSS */
+
 @keyframes fillEffect {
   0% {
     background-position: 100%;
@@ -26,4 +23,26 @@ body {
   background-position: 100%;
   transition: background 1s;
   animation: fillEffect 2s forwards;
+}
+
+/* CSS */
+@keyframes fadeInEffect {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fadeIn {
+  animation: fadeInEffect 1s ease-in-out forwards;
+}
+.diagonal-box {
+  position: relative;
+  background: linear-gradient(to right, #00349b, #002163);
+  bottom: 200px;
+  width: 100%;
+  transform: skewY(20deg);
+  border-radius: 32px;
 }

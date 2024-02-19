@@ -1,15 +1,14 @@
-function button(props: { value: string }) {
+interface ButtonProps {
+  value: string;
+  className: string;
+}
+
+function Button({ value, className }: ButtonProps) {
   return (
-    <>
-      <button
-        value={props.value}
-        className=" text-white  py-2 px-6 w-4/5  font-bold  rounded-2xl  text-xl  fillEffect"
-        type="submit"
-      >
-        {props.value}
-      </button>
-    </>
+    <button value={value} className={className} type="submit">
+      {value}
+    </button>
   );
 }
 
-export default button;
+export default Button;
