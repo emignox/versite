@@ -7,13 +7,25 @@ const postRoutes = require("./routes/postRoutes");
 const cookiePaerser = require("cookie-parser");
 const { checkUser } = require("./middleware/auth.middleware");
 const { requireAuth } = require("./middleware/auth.middleware");
+const cors = require("cors"); // Import cors
 
 app.use(express.json()); // Use express.json middleware
 //routes
 app.use("/api/user", userRoutes); // Use userRoutes
 app.use(cookiePaerser());
+// authorisation cors
+
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+  allowedHeaders: ["sessionId", "Content-Type"],
+  exposedHeaders: ["sessionId"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+};
 
 app.use("/api/post", postRoutes);
+app.use(cors(corsOptions));
 
 //jwt
 app.get("*", checkUser);
