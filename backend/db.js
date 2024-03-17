@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
-require("dotenv").config();
-const uri = process.env.MONGODB_URI;
+require("dotenv").config(); // Import dotenv
 
 mongoose
-  .connect(uri, { writeConcern: { w: 1 } })
-  .then(() => console.log("MongoDB Connected..."))
-  .catch((err) => console.log(err));
+  .connect(process.env.URI, {})
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.log("Failed to connect to MongoDB", err));
 
-module.exports = mongoose;
+module.exports = mongoose; // Export mongoose

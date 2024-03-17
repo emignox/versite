@@ -1,42 +1,26 @@
-const http = require("http");
-const express = require("express");
-const app = express();
-const client = require("./db");
-const server = http.createServer(app);
-const cors = require("cors");
-const userRouter = require("./routes/route-user");
-const auth = require("./routes/route-auth");
-const Post = require("./routes/route-post");
-const getPost = require("./routes/route-getPost");
-const getUser = require("./routes/route-get-user");
+const express = require("express"); // Import express
+const userRoutes = require("./routes/userRoutes"); // Import userRoutes
+require("dotenv").config(); // Import dotenv
+const app = express(); // Initialize the app with express
+const connect = require("./db"); // Import the connect function from db.js
+const postRoutes = require("./routes/postRoutes");
+const cookiePaerser = require("cookie-parser");
+const { checkUser } = require("./middleware/auth.middleware");
+const { requireAuth } = require("./middleware/auth.middleware");
 
-app.use(cors());
-app.use(express.json());
-// Utilizza il router per creare uno user endpoint
+app.use(express.json()); // Use express.json middleware
+//routes
+app.use("/api/user", userRoutes); // Use userRoutes
+app.use(cookiePaerser());
 
-// REGISTRATION AUTHENTICATION AND LOGIN ROUTES
-app.use("/publics", express.static("publics"));
-app.use("/api/", userRouter);
-app.use("/api/auth", auth);
+app.use("/api/post", postRoutes);
 
-//  POSTS  AND LIKE COMMENTS ROUTES
-
-app.use("/api/post", Post);
-//GET POST BY ID
-app.use("/api/getPost", getPost);
-app.use("/api/getUser", getUser);
-
-if (server.listen(3000)) {
-  console.log("server is listening on port 3000");
-} else {
-  console.log("server in not running ");
-}
-
-app.use(function (err, req, res, next) {
-  console.error(err.stack);
-  res.status(500).send("Something broke!");
+//jwt
+app.get("*", checkUser);
+app.get("/jwtid", requireAuth, (req, res) => {
+  res.status(200).send(res.locals.user._id);
 });
-
-process.on("exit", async () => {
-  await client.close();
+//server.js
+app.listen(process.env.PORT, () => {
+  console.log(`listening on port ${process.env.PORT}`);
 });
