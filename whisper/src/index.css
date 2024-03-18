@@ -8,41 +8,18 @@ body {
   font-family: "Alegreya SC", serif;
 }
 
-@keyframes fillEffect {
-  0% {
-    background-position: 100%;
-  }
-  100% {
-    background-position: 0%;
-  }
-}
-
-.fillEffect {
-  background: linear-gradient(to right, #00349b 50%, transparent 50%);
-  background-size: 200% 100%;
-  background-position: 100%;
-  transition: background 1s;
-  animation: fillEffect 2s forwards;
-}
-
 /* CSS */
-@keyframes fadeInEffect {
+@keyframes fadeInOut {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
 }
 
-.fadeIn {
-  animation: fadeInEffect 1s ease-in-out forwards;
-}
-.diagonal-box {
-  position: relative;
-  background: linear-gradient(to right, #00349b, #002163);
-  bottom: 200px;
-  width: 100%;
-  transform: skewY(20deg);
-  border-radius: 32px;
+.fadeInOut {
+  animation-name: fadeInOut;
+  animation-duration: 1s;
 }
