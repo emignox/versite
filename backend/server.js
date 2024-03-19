@@ -10,10 +10,6 @@ const { requireAuth } = require("./middleware/auth.middleware");
 const cors = require("cors"); // Import cors
 
 app.use(express.json()); // Use express.json middleware
-//routes
-app.use("/api/user", userRoutes); // Use userRoutes
-app.use(cookiePaerser());
-// authorisation cors
 
 const corsOptions = {
   origin: process.env.CLIENT_URL,
@@ -23,9 +19,16 @@ const corsOptions = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   preflightContinue: false,
 };
+app.use(cors(corsOptions));
+console.log(
+  `CORS is configured to accept requests from: ${process.env.CLIENT_URL}`
+);
+//routes
+app.use("/api/user", userRoutes); // Use userRoutes
+app.use(cookiePaerser());
+// authorisation cors
 
 app.use("/api/post", postRoutes);
-app.use(cors(corsOptions));
 
 //jwt
 app.get("*", checkUser);
