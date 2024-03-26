@@ -4,6 +4,8 @@ const userController = require("../controllers/userController"); // Import the u
 const uploadcontroller = require("../controllers/upload.controller");
 const multer = require("multer"); // Import multer
 const upload = multer();
+const path = require("path");
+
 router.post("/register", authController.signUp);
 router.post("/login", authController.signIn);
 router.get("/logout", authController.logout);
@@ -18,6 +20,16 @@ router.patch("/unfollow/:id", userController.unfollow);
 
 //upload
 router.post("/upload", upload.single("file"), uploadcontroller.uploadProfil);
+
+router.get("/uploads/profil/:name", (req, res) => {
+  const fileName = req.params.name;
+  const filePath = path.join(
+    __dirname,
+    "../client/public/uploads/profil/",
+    fileName
+  );
+  res.sendFile(filePath);
+});
 
 module.exports = router;
 

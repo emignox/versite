@@ -34,7 +34,7 @@ module.exports.signIn = async (req, res) => {
   }
 };
 //LOGOUT//
-module.exports.logout = async (req, res) => {
-  res.cookie("jwt", "", { maxAge: 1 }); // Clear the token from the cookie
-  res.redirect("/login"); // Redirect to the home page
+exports.logout = (req, res) => {
+  res.clearCookie("token");
+  res.status(200).json({ message: "Logged out successfully" });
 };

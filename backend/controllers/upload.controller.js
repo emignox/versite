@@ -5,6 +5,7 @@ const { uploadErrors } = require("../utils/errors.utils");
 const { set } = require("mongoose");
 const pipeline = promisify(require("stream").pipeline);
 const Readable = require("stream").Readable;
+const path = require("path");
 
 module.exports.uploadProfil = async (req, res) => {
   let ext = req.file.mimetype.split("/")[1];
@@ -27,7 +28,17 @@ module.exports.uploadProfil = async (req, res) => {
   await pipeline(
     readableStream,
     fs.createWriteStream(
-      `${__dirname}/../client/public/uploads/profil/${fileName}`
+      path.join(
+        __dirname,
+        "..",
+        "..",
+        "whisper",
+        "client",
+        "public",
+        "uploads",
+        "profil",
+        fileName
+      )
     )
   );
   try {

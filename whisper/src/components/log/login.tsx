@@ -4,7 +4,6 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 interface Props {
   switchView: (arg0: boolean) => void;
   className: string;
@@ -15,8 +14,8 @@ const Login: React.FC<Props> = ({ switchView, className }) => {
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-
   const navigate = useNavigate();
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 

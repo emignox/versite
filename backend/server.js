@@ -23,6 +23,7 @@ app.use(cors(corsOptions));
 console.log(
   `CORS is configured to accept requests from: ${process.env.CLIENT_URL}`
 );
+
 //routes
 app.use("/api/user", userRoutes); // Use userRoutes
 app.use(cookiePaerser());
@@ -30,6 +31,8 @@ app.use(cookiePaerser());
 
 app.use("/api/post", postRoutes);
 
+// Serve static files from the "uploads" directory
+// ... il resto del tuo codice server qui ...
 //jwt
 app.get("*", checkUser);
 app.get("/jwtid", requireAuth, (req, res) => {
