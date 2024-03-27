@@ -1,17 +1,13 @@
-// import { useContext } from "react";
-// import { useUser } from "../app.context";
 import { FaPencilAlt } from "react-icons/fa";
 import { useState } from "react";
 
+import { useUser } from "../../context/app.context";
+
 const UpdateBio = () => {
-  //const { user } = useContext(UidContext);
-  // const userFromCtx = useUser();
-
-  const userFromCtx = null;
-  // console.log(userFromCtx, "userFromCtx 2");
-
   const [bio, setBio] = useState("");
   const [form, setForm] = useState(false);
+
+  const userFromCtx = useUser();
 
   //   const [currentUser, setCurrentUser] = useState(user);
   //   const [editing, setEditing] = useState(false);
@@ -40,6 +36,8 @@ const UpdateBio = () => {
   //     setBio(e.target.value);
   //   };
 
+  // [TODO]: Use axios instead of fetch here.
+  // remain consistent with the rest of the codebase
   const handleBioSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const response = await fetch(
@@ -59,33 +57,9 @@ const UpdateBio = () => {
     }
   };
 
+  // [NOTE]: Simplify the logic here a bit but after handling all the success and the erorr states
+  // too many conditional rendering can be confusing to read
   return (
-    // <form
-    //   className="flex flex-col justify-center items-center"
-    // //   onSubmit={handleBioSubmit}
-    // >
-    //   <label htmlFor="bio">Bio:</label>
-    //   {currentUser && currentUser.bio && !editing ? (
-    //     <div className="flex justify-center items-center mx-2">
-    //       <h1>{currentUser.bio}</h1>
-    //       <FaPencilAlt className="mx-3" onClick={() => setEditing(true)} />
-    //     </div>
-    //   ) : (
-    //     <>
-    //       <input
-    //         className="w-1/2 rounded-md border-2 border-transparent my-2 p-2"
-    //         id="bio"
-    //         type="text"
-    //         value={bio}
-    //         onChange={handleBioChange}
-    //       />
-    //       <button className="bg-custom-blue text-white px-4 py-2 rounded">
-    //         Submit
-    //       </button>
-    //     </>
-    //   )}
-    // </form>
-    // <div>{user ? <pre>{JSON.stringify(user, null, 2)}</pre> : <h1> </h1>}</div>
     <div>
       {userFromCtx?.bio ? (
         <div className=" flex  justify-center items-center  gap-2  ">

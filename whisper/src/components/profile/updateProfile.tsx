@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { UidContext } from "../app.context";
+import { UidContext } from "../../context/app.context";
 import { useState } from "react";
 import Bio from "./update.bio";
 

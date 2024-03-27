@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { UidProvider } from "./components/app.context";
+import { UidProvider } from "./context/app.context";
 import "./index.css";
 
 ReactDOM.render(

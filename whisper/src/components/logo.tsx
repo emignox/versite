@@ -1,7 +1,7 @@
 import logo from "/w.png";
 import bell from "/bell.png";
 import { useContext } from "react";
-import { UidContext } from "./app.context";
+import { UidContext } from "../context/app.context";
 
 const Logo = () => {
   const { user } = useContext(UidContext);

@@ -1,13 +1,16 @@
-import { UidContext } from "../components/app.context";
-import { useContext } from "react";
-// import { useUid } from "../components/app.context";
+import { useUid } from "../context/app.context";
 import Connection from "./connection";
 import Update from "../components/profile/updateProfile";
 
 const Profile = () => {
-  // const useUidFromCtx = useUid();
-  // console.log(useUidFromCtx, "useUidFromCtx in profile");
-  const uid = useContext(UidContext);
-  return <div>{!uid ? <Connection /> : <Update />}</div>;
+  const useUidFromCtx = useUid();
+
+  // return early the component if uid is null
+  // please delete once you hve read it
+  if (!useUidFromCtx) {
+    return;
+  }
+
+  return <div>{!useUidFromCtx ? <Connection /> : <Update />}</div>;
 };
 export default Profile;

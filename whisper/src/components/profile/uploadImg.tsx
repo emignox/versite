@@ -1,5 +1,5 @@
 import { useState, FormEvent, ChangeEvent } from "react";
-import { UidContext } from "../app.context";
+import { UidContext } from "../../context/app.context";
 import { useContext } from "react";
 
 const UploadImg = () => {
