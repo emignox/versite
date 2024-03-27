@@ -1,4 +1,5 @@
-import { createContext } from "react";
+import { createContext, useContext, useState } from "react";
+
 export interface User {
   _id: string;
   username: string;
@@ -13,22 +14,47 @@ export interface User {
 
 interface UidContextProps {
   uid: string | null;
-  user: User | null;
-  setUid: React.Dispatch<React.SetStateAction<string | null>>;
+  // user: User | null;
+  setUid: (uid: string | null) => void;
+  // setUser: (user: User | null) => void;
 }
 
-export const UidContext = createContext<UidContextProps>({
+const initialContext: UidContextProps = {
   uid: null,
-  user: null,
-  setUid: () => {},
-});
-
-export const uploadImg = async (file: File, userId: string) => {
-  const data = new FormData();
-  data.append("userId", userId);
-  data.append("file", file);
-  await fetch("http://localhost:5001/api/user/upload", {
-    method: "POST",
-    body: data,
-  });
+  // user: null,
+  setUid: () => {
+    return;
+  },
+  // setUser: () => {
+  //   return;
+  // },
 };
+
+export const UidContext = createContext<UidContextProps>(initialContext);
+
+const useStore = () => {
+  const [uid, setUid] = useState(initialContext.uid);
+  // const [user, setUser] = useState(initialContext.user);
+
+  console.log(uid, "uid in ctx");
+
+  return {
+    uid,
+    // user,
+    setUid,
+    // setUser,
+    // resetUid: () => setUid(null),
+    // resetUser: () => setUser(null),
+  };
+};
+
+export const UidProvider = ({ children }: { children: React.ReactNode }) => (
+  <UidContext.Provider value={useStore()}>{children}</UidContext.Provider>
+);
+
+const useUidProviderStoreContext = () => useContext(UidContext);
+
+// export const useUser = () => useUidProviderStoreContext()?.user;
+// export const useSetUser = () => useUidProviderStoreContext().setUser;
+export const useUid = () => useUidProviderStoreContext()?.uid;
+export const useSetUid = () => useUidProviderStoreContext().setUid;

@@ -17,7 +17,7 @@ const Logo = () => {
           {user ? (
             <img
               className="w-12  p-2 rounded-full"
-              src="https://www.iprcenter.gov/image-repository/blank-profile-picture.png/@@images/image.png"
+              src={`./client/public/${user ? user.picture : ""}`}
               alt=""
             />
           ) : (

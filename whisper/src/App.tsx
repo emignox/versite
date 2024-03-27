@@ -1,56 +1,95 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Reg from "./pages/connection";
 import Home from "./pages/home";
-import { UidContext, User } from "./components/app.context";
-import { useEffect, useState } from "react";
+import {
+  UidProvider,
+  // useSetUser,
+  // useUser,
+  //  useUid,
+  useSetUid,
+  useUid,
+} from "./components/app.context";
+import { useEffect } from "react";
 import axios from "axios";
 import Profile from "./pages/profile";
 
 function App() {
-  const [uid, setUid] = useState<string | null>(null);
-  const [user, setUser] = useState<User | null>(null);
+  //const [uid, setUid] = useState<string | null>(null);
+  // const [user, setUser] = useState<User | null>(null);
+
+  // const userFromCtx = useUser();
+  // const setUserInCtx = useSetUser();
+
+  const useUidFromCtx = useUid();
+  const setUidInCtx = useSetUid();
+
+  // console.log(userFromCtx, "userFromCtx");
+  console.log(useUidFromCtx, "useUidFromCtx");
+
+  // useEffect(() => {
+  //   const fetchUid = async () => {
+  //     await axios({
+  //       method: "get",
+  //       url: "http://localhost:5001/jwtid",
+  //       withCredentials: true,
+  //     }).then((res) => {
+  //       console.log(res.data, "uid");
+  //       setUidInCtx(res.data);
+  //       // setUid(res.data);
+  //     });
+  //   };
+
+  //   fetchUid();
+  // }, []);
 
   useEffect(() => {
-    const fetchUid = async () => {
-      await axios({
+    const getUid = async () => {
+      const uid = await axios({
         method: "get",
         url: "http://localhost:5001/jwtid",
         withCredentials: true,
-      }).then((res) => {
-        console.log(res.data);
-        setUid(res.data);
       });
+
+      console.log(uid.data, "uid.data");
+
+      setUidInCtx(uid.data);
     };
 
-    fetchUid();
-  }, []);
+    getUid();
+    setUidInCtx(`1111111`);
 
-  useEffect(() => {
-    if (uid) {
-      const fetchUser = async () => {
-        await axios({
-          method: "get",
-          url: `http://localhost:5001/api/user/${uid}`,
-        }).then((res) => {
-          setUser(res.data);
-        });
-      };
-      fetchUser();
-    }
-  }, [uid]);
+    // return () => {
+    //   return;
+    // };
+  }, [setUidInCtx]);
+
+  // useEffect(() => {
+  //   if (useUidFromCtx !== null) {
+  //     const fetchUser = async () => {
+  //       await axios({
+  //         method: "get",
+  //         // url: `http://localhost:5001/api/user/${uid}`,
+  //         url: `http://localhost:5001/api/user/${useUidFromCtx}`,
+  //       }).then((res) => {
+  //         //  setUser(res.data);
+  //         console.log(res.data, "user");
+  //         setUserInCtx(res.data);
+  //       });
+  //     };
+  //     fetchUser();
+  //   }
+  // }, []);
 
   return (
-    <div>
-      <UidContext.Provider value={{ uid, user, setUid }}>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Reg />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-        </Router>
-      </UidContext.Provider>
-    </div>
+    <UidProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Reg />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </Router>
+    </UidProvider>
   );
 }
 
