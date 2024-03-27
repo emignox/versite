@@ -12,44 +12,43 @@ export interface User {
   likes: string[];
 }
 
+type Uid = string | null;
+
 interface UidProviderProps {
   children: React.ReactNode;
 }
 
 interface UidContext {
-  uid: string | null;
-  // user: User | null;
-  setUid: (uid: string | null) => void;
-  // setUser: (user: User | null) => void;
+  uid: Uid;
+  user: User | null;
+  setUid: (uid: Uid) => void;
+  setUser: (user: User | null) => void;
 }
 
 const initialContext = {
   uid: null,
-  // uid: "65f448df902bb6c2cee933c5",
-  // user: null,
+  user: null,
   setUid: () => {
-    return;
+    return null;
   },
-  // setUser: () => {
-  //   return;
-  // },
+  setUser: () => {
+    return null;
+  },
 };
 
 export const UidContext = createContext<UidContext>(initialContext);
 
 const useStore = () => {
-  const [uid, setUid] = useState<string | null>(initialContext.uid);
-  // const [user, setUser] = useState(initialContext.user);
+  const [uid, setUid] = useState<Uid>(initialContext.uid);
+  const [user, setUser] = useState<User | null>(initialContext.user);
 
   console.log(uid, "uid in ctx");
 
   return {
     uid,
-    // user,
+    user,
     setUid,
-    // setUser,
-    // resetUid: () => setUid(null),
-    // resetUser: () => setUser(null),
+    setUser,
   };
 };
 
@@ -59,7 +58,7 @@ export const UidProvider = ({ children }: UidProviderProps) => (
 
 const useUidProviderStoreContext = () => useContext(UidContext);
 
-// export const useUser = () => useUidProviderStoreContext()?.user;
-// export const useSetUser = () => useUidProviderStoreContext().setUser;
 export const useUid = () => useUidProviderStoreContext()?.uid;
 export const useSetUid = () => useUidProviderStoreContext().setUid;
+export const useUser = () => useUidProviderStoreContext()?.user;
+export const useSetUser = () => useUidProviderStoreContext().setUser;
