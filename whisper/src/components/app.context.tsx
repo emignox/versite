@@ -12,15 +12,20 @@ export interface User {
   likes: string[];
 }
 
-interface UidContextProps {
+interface UidProviderProps {
+  children: React.ReactNode;
+}
+
+interface UidContext {
   uid: string | null;
   // user: User | null;
   setUid: (uid: string | null) => void;
   // setUser: (user: User | null) => void;
 }
 
-const initialContext: UidContextProps = {
+const initialContext = {
   uid: null,
+  // uid: "65f448df902bb6c2cee933c5",
   // user: null,
   setUid: () => {
     return;
@@ -30,10 +35,10 @@ const initialContext: UidContextProps = {
   // },
 };
 
-export const UidContext = createContext<UidContextProps>(initialContext);
+export const UidContext = createContext<UidContext>(initialContext);
 
 const useStore = () => {
-  const [uid, setUid] = useState(initialContext.uid);
+  const [uid, setUid] = useState<string | null>(initialContext.uid);
   // const [user, setUser] = useState(initialContext.user);
 
   console.log(uid, "uid in ctx");
@@ -48,7 +53,7 @@ const useStore = () => {
   };
 };
 
-export const UidProvider = ({ children }: { children: React.ReactNode }) => (
+export const UidProvider = ({ children }: UidProviderProps) => (
   <UidContext.Provider value={useStore()}>{children}</UidContext.Provider>
 );
 

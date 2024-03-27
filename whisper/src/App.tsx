@@ -23,6 +23,8 @@ function App() {
   const useUidFromCtx = useUid();
   const setUidInCtx = useSetUid();
 
+  console.log(setUidInCtx, "setUidInCtx");
+
   // console.log(userFromCtx, "userFromCtx");
   console.log(useUidFromCtx, "useUidFromCtx");
 
@@ -43,24 +45,22 @@ function App() {
   // }, []);
 
   useEffect(() => {
-    const getUid = async () => {
-      const uid = await axios({
-        method: "get",
-        url: "http://localhost:5001/jwtid",
-        withCredentials: true,
-      });
-
-      console.log(uid.data, "uid.data");
-
-      setUidInCtx(uid.data);
+    const fetchUid = async () => {
+      await axios
+        .get("http://localhost:5001/jwtid", {
+          withCredentials: true,
+        })
+        .then((res) => {
+          console.log(res.data, "uid");
+          setUidInCtx(res.data);
+        });
     };
 
-    getUid();
-    setUidInCtx(`1111111`);
+    fetchUid();
 
-    // return () => {
-    //   return;
-    // };
+    return () => {
+      return;
+    };
   }, [setUidInCtx]);
 
   // useEffect(() => {
