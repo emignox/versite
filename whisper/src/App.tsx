@@ -1,56 +1,58 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import axios from "axios";
+import { useEffect } from "react";
+
 import Reg from "./pages/connection";
 import Home from "./pages/home";
-import { UidContext, User } from "./components/app.context";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useSetUser, useSetUid, useUid } from "./context/app.context";
 import Profile from "./pages/profile";
 
 function App() {
-  const [uid, setUid] = useState<string | null>(null);
-  const [user, setUser] = useState<User | null>(null);
+  const setUidInCtx = useSetUid();
+  const setUserInCtx = useSetUser();
+
+  const useUidFromCtx = useUid();
 
   useEffect(() => {
     const fetchUid = async () => {
-      await axios({
-        method: "get",
-        url: "http://localhost:5001/jwtid",
-        withCredentials: true,
-      }).then((res) => {
-        console.log(res.data);
-        setUid(res.data);
-      });
+      await axios
+        .get("http://localhost:5001/jwtid", {
+          withCredentials: true,
+        })
+        .then((res) => {
+          console.log(res.data, "uid");
+          setUidInCtx(res.data);
+        });
     };
 
     fetchUid();
-  }, []);
+
+    return () => {
+      return;
+    };
+  }, [setUidInCtx]);
 
   useEffect(() => {
-    if (uid) {
+    if (useUidFromCtx !== null) {
       const fetchUser = async () => {
-        await axios({
-          method: "get",
-          url: `http://localhost:5001/api/user/${uid}`,
-        }).then((res) => {
-          setUser(res.data);
-        });
+        await axios
+          .get(`http://localhost:5001/api/user/${useUidFromCtx}`)
+          .then((res) => {
+            setUserInCtx(res.data);
+          });
       };
       fetchUser();
     }
-  }, [uid]);
+  }, [useUidFromCtx, setUserInCtx]);
 
   return (
-    <div>
-      <UidContext.Provider value={{ uid, user, setUid }}>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Reg />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
-          </Routes>
-        </Router>
-      </UidContext.Provider>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Reg />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+    </Router>
   );
 }
 

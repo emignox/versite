@@ -1,7 +1,7 @@
 import logo from "/w.png";
 import bell from "/bell.png";
 import { useContext } from "react";
-import { UidContext } from "./app.context";
+import { UidContext } from "../context/app.context";
 
 const Logo = () => {
   const { user } = useContext(UidContext);
@@ -17,7 +17,7 @@ const Logo = () => {
           {user ? (
             <img
               className="w-12  p-2 rounded-full"
-              src="https://www.iprcenter.gov/image-repository/blank-profile-picture.png/@@images/image.png"
+              src={`./client/public/${user ? user.picture : ""}`}
               alt=""
             />
           ) : (
