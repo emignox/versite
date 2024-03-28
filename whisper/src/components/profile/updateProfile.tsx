@@ -13,10 +13,14 @@ const Update = () => {
     data.append("name", user?.username || "");
     data.append("userId", user ? user._id || "" : "");
     data.append("file", file as Blob);
-    await fetch("http://localhost:5001/api/user/upload", {
+    const response = await fetch("http://localhost:5001/api/user/upload", {
       method: "POST",
       body: data,
     });
+
+    if (response.ok) {
+      window.location.reload();
+    }
   };
 
   return (
@@ -30,7 +34,7 @@ const Update = () => {
         <h1 className=" text-center text-3xl ">{user?.username}</h1>
       </div>
       <div className="my-12 text-center">
-        <article className="my-3">{user ? user.email : ""}</article>
+        <article className="my-3 font-black text-3xl">{user?.email}</article>
         <Bio />
       </div>
       <div>
@@ -41,7 +45,7 @@ const Update = () => {
         >
           <img
             className="rounded-full  w-52 mx-2 mt-5  object-cover object-top "
-            src={`./client/public/${user ? user.picture : ""}`}
+            src={`./client/public/${user?.picture}`}
             alt=""
           />
           <button className="">
