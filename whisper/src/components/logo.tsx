@@ -1,28 +1,29 @@
 import logo from "/w.png";
 import bell from "/bell.png";
-import { useContext } from "react";
-import { UidContext } from "../context/app.context";
+import { useUser } from "../context/app.context";
 
 const Logo = () => {
-  const { user } = useContext(UidContext);
+  const userFromCtx = useUser();
 
   return (
-    <ul className=" flex  justify-between items-center">
+    <ul className="flex justify-between items-center fixed top-0 left-0 w-full shadow-2xl lg:shadow-none  bg-custom-white z-50">
       <img className="w-16 p-2" src={logo} alt="" />
       <div className=" flex justify-center items-center">
         <div>
-          {user ? <h1>Welcome, {user.username}!</h1> : <h1>Welcome!</h1>}
+          {userFromCtx ? (
+            <h1 className="text-xl font-bold">
+              Welcome, {userFromCtx?.username}!
+            </h1>
+          ) : (
+            <h1>Welcome!</h1>
+          )}
         </div>
         <div>
-          {user ? (
-            <img
-              className="w-12  p-2 rounded-full"
-              src={`./client/public/${user ? user.picture : ""}`}
-              alt=""
-            />
-          ) : (
-            <img alt="" />
-          )}
+          <img
+            className="w-12  p-2 rounded-full"
+            src={`./client/public/${userFromCtx?.picture} `}
+            alt=""
+          />
         </div>
       </div>
 

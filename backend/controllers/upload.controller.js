@@ -8,6 +8,9 @@ const Readable = require("stream").Readable;
 const path = require("path");
 
 module.exports.uploadProfil = async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ error: "No file was uploaded." });
+  }
   let ext = req.file.mimetype.split("/")[1];
 
   try {
@@ -48,6 +51,7 @@ module.exports.uploadProfil = async (req, res) => {
       { new: true, upsert: true, setDefaultsOnInsert: true } //upsert: true, setDefaultsOnInsert: true
     );
     if (!req.body.userId) throw Error("userId not found");
+    res.status(200).json({ message: "Profile updated successfully" });
   } catch (err) {
     return res.status(201).json({ err });
   }

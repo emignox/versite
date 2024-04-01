@@ -2,61 +2,59 @@ import { useState } from "react";
 import Plus from "/plus.png";
 import { IoCloseOutline } from "react-icons/io5";
 import { AiOutlinePicture } from "react-icons/ai";
-import axios from "axios";
+import { useUser } from "../context/app.context";
 
 const CreatePost = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
-  const [video, setVideo] = useState<File | null>(null);
+  const [video, setVideo] = useState("");
+  const userFromCtx = useUser();
 
   const handleClick = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFile(event.target.files ? event.target.files[0] : null);
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const formData = new FormData();
+    if (userFromCtx) {
+      formData.append("posterId", userFromCtx._id);
+      formData.append("message", message);
+      formData.append("video", video);
+      if (file) {
+        formData.append("file", file);
+      }
+
+      fetch("http://localhost:5001/api/post", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => {
+          if (response.ok) {
+            setIsOpen(false);
+          }
+          return response.json();
+        })
+        .then((data) => console.log(data))
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+    }
   };
 
   const handleMessageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
   };
+
   const handleVideoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setVideo(event.target.files ? event.target.files[0] : null);
+    setVideo(event.target.value);
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    const formData = new FormData();
-    if (file) {
-      formData.append("file", file);
-    }
-    formData.append("message", message);
-
-    if (video) formData.append("video", video);
-
-    try {
-      const response = await axios.post(
-        `http://localhost:5001/api/post`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
-        }
-      );
-
-      console.log(response);
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        const errors = error.response?.data.errors;
-        console.error(errors);
-      }
-    }
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFile(event.target.files ? event.target.files[0] : null);
   };
-
   return (
     <div className="flex justify-center items-center">
       <img

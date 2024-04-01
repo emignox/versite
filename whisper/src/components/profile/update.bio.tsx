@@ -1,6 +1,5 @@
 import { FaPencilAlt } from "react-icons/fa";
 import { useState } from "react";
-
 import { useUser } from "../../context/app.context";
 
 const UpdateBio = () => {
@@ -55,38 +54,49 @@ const UpdateBio = () => {
       const message = `An error has occured: ${response.status}`;
       throw new Error(message);
     }
+    if (userFromCtx) {
+      userFromCtx.bio = bio;
+      setForm(false);
+    }
   };
 
   // [NOTE]: Simplify the logic here a bit but after handling all the success and the erorr states
   // too many conditional rendering can be confusing to read
   return (
     <div>
-      {userFromCtx?.bio ? (
-        <div className=" flex  justify-center items-center  gap-2  ">
-          {userFromCtx.bio}
-          <FaPencilAlt onClick={() => setForm(true)} />
-        </div>
-      ) : null}
-
-      {form && (
+      {form ? (
         <form
-          onSubmit={handleBioSubmit}
           className="flex flex-col justify-center items-center"
+          onSubmit={handleBioSubmit}
         >
           <label htmlFor="bio">Bio:</label>
-          <input
-            className="w-1/2 rounded-md border-2 border-transparent my-2 p-2"
+          <textarea
+            className="w-full h-8 border-black my-2 p-2  "
             id="bio"
-            type="text"
             onChange={(e) => setBio(e.target.value)}
-          ></input>
-          <button
-            type="submit"
-            className="bg-custom-blue text-white px-4 py-2 rounded"
-          >
-            Submit
-          </button>
+            maxLength={150}
+          ></textarea>
+          <div className="flex gap-3 justify-center items-center ">
+            <button
+              type="submit"
+              className="bg-custom-blue text-white px-4 py-2 rounded"
+            >
+              Submit
+            </button>
+            <button
+              className="bg-gray-500 text-white px-4 py-2 rounded"
+              onClick={() => setForm(false)}
+            >
+              cancel
+            </button>
+          </div>
         </form>
+      ) : (
+        <div className=" flex  justify-center items-center font-medium  gap-2  rounded  my-5">
+          <h1>Bio:</h1>
+          {userFromCtx?.bio}
+          <FaPencilAlt onClick={() => setForm(true)} />
+        </div>
       )}
     </div>
   );

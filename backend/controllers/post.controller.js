@@ -5,6 +5,7 @@ const { uploadErrors } = require("../utils/errors.utils");
 const { Readable } = require("stream");
 const fs = require("fs");
 const { pipeline } = require("stream").promises;
+const path = require("path");
 
 module.exports.readPost = async (req, res) => {
   try {
@@ -26,7 +27,7 @@ module.exports.createPost = async (req, res) => {
       return res.status(201).json({ errors });
     }
 
-    if (req.file.size > 500000) {
+    if (req.file.size > 700000) {
       const errors = uploadErrors(new Error("max size"));
       return res.status(201).json({ errors });
     }
@@ -38,11 +39,21 @@ module.exports.createPost = async (req, res) => {
     await pipeline(
       readableStream,
       fs.createWriteStream(
-        `${__dirname}/../client/public/uploads/posts/${fileName}`
+        path.join(
+          __dirname,
+          "..",
+          "..",
+          "whisper",
+          "client",
+          "public",
+          "uploads",
+          "posts",
+          fileName
+        )
       )
     );
   } else {
-    fileName = req.body.posterId + Date.now() + ".jpg";
+    fileName = req.body.posterId + Date.now() + ext;
   }
 
   const newPost = new PostModel({
