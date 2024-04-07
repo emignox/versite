@@ -32,16 +32,23 @@ const Register: React.FC<Props> = ({ switchView, className }) => {
           password,
         }
       );
-
-      console.log(response.data);
+      if (response.status === 200 || response.status === 201) {
+        alert("User registered successfully");
+        switchView(true); // Cambia la vista al componente di login
+      } else {
+        console.log(response.data);
+      }
     } catch (error) {
-      console.error(error);
+      alert("There was an error!");
+      console.log(error);
     }
   };
 
   return (
     <>
-      <div className={` flex justify-center items-center ${className}`}>
+      <div
+        className={` h-screen flex justify-center items-center ${className}`}
+      >
         <div className="relative">
           <img
             className="h-screen overflow-y-hidden object-cover"
