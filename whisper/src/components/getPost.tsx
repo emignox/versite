@@ -2,13 +2,17 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Like from "./likes";
 import Comment from "./comments";
-
+export interface PostComments {
+  commenterId: string;
+  commenterUsername: string;
+  text: string;
+}
 interface Post {
   _id: string;
   message: string;
   posterId: string;
   likers: string[];
-  comments: string[];
+  comments: PostComments[];
   date: number;
   picture: string;
   createdAt: string;
@@ -94,7 +98,9 @@ const GetPost = () => {
               alt=""
             />{" "}
             <div className="flex justify-between w-full items-center">
-              <Like post={post} /> <Comment post={post} />
+              <Like post={post} />
+
+              <Comment post={post} />
             </div>
           </div>
         </div>

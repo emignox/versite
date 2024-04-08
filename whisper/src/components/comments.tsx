@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useUser } from "../context/app.context";
 import { AiOutlineComment } from "react-icons/ai";
 import { useComments, useSetComments } from "../context/post.context"; // Importa useComments e useSetComments
+import { PostComments } from "./getPost";
 
 interface CommentProps {
   post: Post;
@@ -12,7 +13,7 @@ interface Post {
   message: string;
   posterId: string;
   likers: string[];
-  comments: string[];
+  comments: PostComments[];
   date: number;
   picture: string;
   createdAt: string;
@@ -78,8 +79,20 @@ const Comments: React.FC<CommentProps> = ({ post }) => {
               onChange={(e) => setCommentText(e.target.value)}
               placeholder="Write a comment..."
             />
-            <button type="submit">Submit</button>
-            <button onClick={() => setForm(false)}>cancel </button>
+            <div className=" flex  justify-between items-center  ">
+              <button
+                className=" bg-custom-blue px-2 text-white py-1 rounded-xl"
+                type="submit"
+              >
+                Submit
+              </button>
+              <button
+                className=" bg-custom-white px-2 py-1 rounded-xl"
+                onClick={() => setForm(false)}
+              >
+                cancel{" "}
+              </button>
+            </div>
           </form>
         </div>
       )}

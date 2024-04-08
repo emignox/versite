@@ -69,6 +69,7 @@
 import { useUser } from "../context/app.context";
 import { useSetLikes } from "../context/post.context"; // Importa questi hook
 import { AiOutlineLike } from "react-icons/ai";
+import { PostComments } from "./getPost";
 
 interface LikesCommentsProps {
   post: Post;
@@ -78,7 +79,7 @@ interface Post {
   message: string;
   posterId: string;
   likers: string[];
-  comments: string[];
+  comments: PostComments[];
   date: number;
   picture: string;
   createdAt: string;
