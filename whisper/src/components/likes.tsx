@@ -92,7 +92,7 @@ const Likes: React.FC<LikesCommentsProps> = ({ post }) => {
   const likePost = async () => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/post/like-post/${post._id}`,
+        `https://whisper-server.vercel.app/post/like-post/${post._id}`,
         {
           method: "PATCH",
           headers: {

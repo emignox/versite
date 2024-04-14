@@ -21,7 +21,7 @@ const Login: React.FC<Props> = ({ switchView, className }) => {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/user/login`,
+        `https://whisper-server.vercel.app/user/login`,
         {
           email,
           password,

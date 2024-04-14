@@ -12,7 +12,7 @@ const LogOut = () => {
   const logout = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:5001/api/user/logout`,
+        `https://whisper-server.vercel.app/user/logout`,
         {
           withCredentials: true,
         }

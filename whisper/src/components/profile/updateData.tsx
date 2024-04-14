@@ -52,7 +52,7 @@ const UpdateUser = () => {
     console.log(body);
 
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/user/${userFromCtx?._id}`,
+      `https://whisper-server.vercel.app/user/${userFromCtx?._id}`,
       {
         method: "PUT",
         headers: {

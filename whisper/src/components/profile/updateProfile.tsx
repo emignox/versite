@@ -18,7 +18,7 @@ const Update = () => {
     data.append("userId", userFromCtx?._id || "");
     data.append("file", file as Blob);
     const response = await fetch(
-      `${process.env.REACT_APP_API_URL}/user/upload`,
+      `https://whisper-server.vercel.app/user/upload`,
       {
         method: "POST",
         body: data,

@@ -27,7 +27,7 @@ const CreatePost = () => {
         formData.append("file", file);
       }
 
-      fetch("http://localhost:5001/api/post", {
+      fetch("https://whisper-server.vercel.app/post", {
         method: "POST",
         body: formData,
       })
@@ -56,7 +56,7 @@ const CreatePost = () => {
     setFile(event.target.files ? event.target.files[0] : null);
   };
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex items-center justify-center">
       <img
         src={Plus}
         alt="Aggiungi post"
@@ -65,15 +65,15 @@ const CreatePost = () => {
       />
 
       {isOpen && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-10">
+        <div className="fixed inset-0 z-10 flex items-center justify-center bg-black bg-opacity-50">
           <form
             action=""
             onSubmit={handleSubmit}
-            className="bg-white p-4 rounded mx-3 h-auto space-y-5 w-full lg:w-1/2"
+            className="w-full h-auto p-4 mx-3 space-y-5 bg-white rounded lg:w-1/2"
           >
             <h1 className="text-center">Create a post </h1>
 
-            <div className=" flex items-end justify-end ">
+            <div className="flex items-end justify-end ">
               <button onClick={handleClick}>
                 <IoCloseOutline />
               </button>
@@ -94,15 +94,15 @@ const CreatePost = () => {
                 onChange={handleVideoChange}
               />
             </div>
-            <div className=" flex flex-col justify-between items-center">
-              <h1 className=" text-xl">choose a picture</h1>
+            <div className="flex flex-col items-center justify-between ">
+              <h1 className="text-xl ">choose a picture</h1>
               <label htmlFor="uploadFile">
                 <AiOutlinePicture className="text-3xl" />
               </label>
               <input
                 type="file"
                 id="uploadFile"
-                className="mb-2 hidden"
+                className="hidden mb-2"
                 onChange={handleFileChange}
               />
               <div className="flex flex-col items-center justify-end">
@@ -116,10 +116,10 @@ const CreatePost = () => {
                 {file && <span>{file.name}</span>}
               </div>
             </div>
-            <div className=" flex justify-end ">
+            <div className="flex justify-end ">
               <button
                 type="submit"
-                className="mb-2  bg-custom-blue text-white h-10 w-20 border rounded-lg hover:bg-custom-white hover:text-black transition duration-300 ease-in-out"
+                className="w-20 h-10 mb-2 text-white transition duration-300 ease-in-out border rounded-lg bg-custom-blue hover:bg-custom-white hover:text-black"
               >
                 Send
               </button>

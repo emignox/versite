@@ -25,7 +25,7 @@ const Register: React.FC<Props> = ({ switchView, className }) => {
 
     try {
       const response = await axios.post(
-        `${process.env.REACT_APP_API_URL}/user/register`,
+        `https://whisper-server.vercel.app/user/register`,
         {
           username,
           email,
@@ -104,7 +104,7 @@ const Register: React.FC<Props> = ({ switchView, className }) => {
                     className="mx-3 my-3 "
                     type="checkbox"
                   />
-                  <p className="text-xs  text-custom-white">
+                  <p className="text-xs text-custom-white">
                     I agree to the{" "}
                     <a className="text-blue-500 underline" href="/">
                       terms and conditions
@@ -118,7 +118,7 @@ const Register: React.FC<Props> = ({ switchView, className }) => {
                   SignUp
                 </button>
                 <button
-                  className="transition-transform duration-200  group hover:translate-x-1"
+                  className="transition-transform duration-200 group hover:translate-x-1"
                   onClick={() => switchView(true)}
                 >
                   Switch to Login{" "}

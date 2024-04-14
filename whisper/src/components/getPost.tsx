@@ -48,14 +48,14 @@ const GetPost = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/post`)
+      .get(`https://whisper-server.vercel.app/post`)
       .then((response) => {
         const posts = response.data;
         setPosts(posts);
 
         // Mappa gli ID degli utenti ai loro dettagli
         const userPromises = posts.map((post: Post) =>
-          axios.get(`${process.env.REACT_APP_API_URL}/user/${post.posterId}`)
+          axios.get(`https://whisper-server.vercel.app/user/${post.posterId}`)
         );
 
         return Promise.all(userPromises);

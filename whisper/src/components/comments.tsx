@@ -31,7 +31,7 @@ const Comments: React.FC<CommentProps> = ({ post }) => {
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/post/comment-post/${post._id}`,
+        `$https://whisper-server.vercel.app/post/comment-post/${post._id}`,
         {
           method: "PATCH",
           headers: {

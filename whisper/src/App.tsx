@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     const fetchUid = async () => {
       await axios
-        .get(`${process.env.REACT_APP_API_URL}/jwtid`, {
+        .get(`https://whisper-server.vercel.app/jwtid`, {
           withCredentials: true,
         })
         .then((res) => {
@@ -36,7 +36,7 @@ function App() {
     if (useUidFromCtx !== null) {
       const fetchUser = async () => {
         await axios
-          .get(`${process.env.REACT_APP_API_URL}/user/${useUidFromCtx}`)
+          .get(`https://whisper-server.vercel.app/user/${useUidFromCtx}`)
           .then((res) => {
             setUserInCtx(res.data);
           });
