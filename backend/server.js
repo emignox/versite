@@ -41,6 +41,7 @@ app.get("*", checkUser);
 app.get("/jwtid", requireAuth, (req, res) => {
   res.status(200).send(res.locals.user._id);
 });
+const port = process.env.PORT || 3000;
 
 //server.js
 app.listen(process.env.PORT, () => {
