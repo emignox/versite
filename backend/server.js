@@ -38,12 +38,6 @@ app.get("*", checkUser);
 app.get("/jwtid", requireAuth, (req, res) => {
   res.status(200).send(res.locals.user._id);
 });
-
-// Add a simple route that says "Ciao"
-app.get("/ciao", (req, res) => {
-  res.send("Ciao");
-});
-
 //server.js
 app.listen(process.env.PORT, () => {
   console.log(`listening on port ${process.env.PORT}`);
