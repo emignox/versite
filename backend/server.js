@@ -36,7 +36,7 @@ app.use("/api/user", userRoutes); // Use userRoutes
 app.use(cookiePaerser());
 // authorisation cors
 
-app.use("/api/post", postRoutes);
+app.use("/post", postRoutes);
 
 // Serve static files from the "uploads" directory
 // ... il resto del tuo codice server qui ...
