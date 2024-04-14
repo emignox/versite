@@ -27,7 +27,7 @@ app.use(cors(corsOptions));
 console.log(
   `CORS is configured to accept requests from: ${process.env.CLIENT_URL}`
 );
-app.get("/ciao", (req, res) => {
+app.get("/api/ciao", (req, res) => {
   res.status(200).send("ciao");
 });
 
