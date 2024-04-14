@@ -12,7 +12,11 @@ const cors = require("cors"); // Import cors
 app.use(express.json()); // Use express.json middleware
 
 const corsOptions = {
-  origin: [process.env.CLIENT_URL, process.env.CLIENT_URL_2],
+  origin: [
+    process.env.CLIENT_URL,
+    process.env.CLIENT_URL_2,
+    process.env.BACKEND_URL,
+  ],
   credentials: true,
   allowedHeaders: ["sessionId", "Content-Type"],
   exposedHeaders: ["sessionId"],
@@ -44,6 +48,6 @@ app.get("/jwtid", requireAuth, (req, res) => {
 const port = process.env.PORT || 3000;
 
 //server.js
-app.listen(process.env.PORT, () => {
+app.listen(port, () => {
   console.log(`listening on port ${process.env.PORT}`);
 });
