@@ -21,7 +21,7 @@ const Login: React.FC<Props> = ({ switchView, className }) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5001/api/user/login`,
+        `${process.env.REACT_APP_API_URL}/user/login`,
         {
           email,
           password,
@@ -53,50 +53,50 @@ const Login: React.FC<Props> = ({ switchView, className }) => {
       <div className={`flex justify-center items-center ${className} `}>
         <div className="relative">
           <img
-            className="h-screen overflow-y-hidden object-cover"
+            className="object-cover h-screen overflow-y-hidden"
             style={{ filter: "brightness(30%)" }}
             src={connect}
             alt=""
           />
-          <div className="absolute top-0 left-0 right-0 flex flex-col justify-center space-y-12 items-center h-screen">
+          <div className="absolute top-0 left-0 right-0 flex flex-col items-center justify-center h-screen space-y-12">
             <img className="w-4/5" src={logo} alt="" />
-            <div className="flex flex-col text-custom-white items-center justify-center rounded-xl h-auto mx-3 p-3">
-              <h1 className="text-3xl font-bold my-12">Log In </h1>
+            <div className="flex flex-col items-center justify-center h-auto p-3 mx-3 text-custom-white rounded-xl">
+              <h1 className="my-12 text-3xl font-bold">Log In </h1>
               <form
                 onSubmit={handleSubmit}
-                className="flex flex-col justify-center text-center text-xl font-medium"
+                className="flex flex-col justify-center text-xl font-medium text-center"
               >
                 <label className="mt-12">Email:</label>
                 <input
-                  className="outline-none bg-transparent border-b-2 border-custom-white h-10"
+                  className="h-10 bg-transparent border-b-2 outline-none border-custom-white"
                   type="email"
                   name="email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 {emailError && (
-                  <div className=" text-red-500">{emailError}</div>
+                  <div className="text-red-500 ">{emailError}</div>
                 )}
                 <label className="mt-12">Password:</label>
                 <input
-                  className="outline-none bg-transparent border-b-2 border-custom-white h-10"
+                  className="h-10 bg-transparent border-b-2 outline-none border-custom-white"
                   type="password"
                   name="password"
                   onChange={(e) => setPassword(e.target.value)}
                 />{" "}
                 {passwordError && (
-                  <div className=" text-red-500">{passwordError}</div>
+                  <div className="text-red-500 ">{passwordError}</div>
                 )}
                 <button
                   type="submit"
-                  className="rounded-full bg-white text-custom-blue my-12 hover:bg-custom-blue hover:text-white transition duration-300 ease-in-out h-8 lg:h-12"
+                  className="h-8 my-12 transition duration-300 ease-in-out bg-white rounded-full text-custom-blue hover:bg-custom-blue hover:text-white lg:h-12"
                 >
                   SignIn
                 </button>
                 <button
-                  className=" group hover:-translate-x-1 transition-transform duration-200"
+                  className="transition-transform duration-200 group hover:-translate-x-1"
                   onClick={() => switchView(false)}
                 >
-                  <FaArrowLeft className="inline mx-2 group-hover:-translate-x-1 transition-transform duration-200" />
+                  <FaArrowLeft className="inline mx-2 transition-transform duration-200 group-hover:-translate-x-1" />
                   Switch to Register
                 </button>
               </form>

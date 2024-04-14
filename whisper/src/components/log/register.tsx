@@ -25,7 +25,7 @@ const Register: React.FC<Props> = ({ switchView, className }) => {
 
     try {
       const response = await axios.post(
-        `http://localhost:5001/api/user/register`,
+        `${process.env.REACT_APP_API_URL}/user/register`,
         {
           username,
           email,
@@ -51,60 +51,60 @@ const Register: React.FC<Props> = ({ switchView, className }) => {
       >
         <div className="relative">
           <img
-            className="h-screen overflow-y-hidden object-cover"
+            className="object-cover h-screen overflow-y-hidden"
             style={{ filter: "brightness(30%)" }}
             src={connect}
             alt=""
           />
-          <div className="absolute top-0 left-0 right-0 flex flex-col justify-center space-y-2 items-center h-screen">
+          <div className="absolute top-0 left-0 right-0 flex flex-col items-center justify-center h-screen space-y-2">
             <img className="w-4/5" src={logo} alt="" />
-            <div className="flex flex-col text-custom-white items-center justify-center rounded-xl h-auto mx-3 p-3">
-              <h1 className="text-3xl font-bold my-12">Register</h1>
+            <div className="flex flex-col items-center justify-center h-auto p-3 mx-3 text-custom-white rounded-xl">
+              <h1 className="my-12 text-3xl font-bold">Register</h1>
               <form
                 onSubmit={handleSubmit}
-                className="flex flex-col justify-center text-center text-xl font-medium"
+                className="flex flex-col justify-center text-xl font-medium text-center"
               >
                 <label>Username:</label>
                 <input
-                  className="outline-none bg-transparent border-b-2 border-custom-white h-10"
+                  className="h-10 bg-transparent border-b-2 outline-none border-custom-white"
                   type="text"
                   name="username"
                   onChange={(e) => setUsername(e.target.value)}
                 />
                 <label className="mt-12">Email:</label>
                 <input
-                  className="outline-none bg-transparent border-b-2 border-custom-white h-10"
+                  className="h-10 bg-transparent border-b-2 outline-none border-custom-white"
                   type="email"
                   name="email"
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <label className="mt-12">Password:</label>
                 <input
-                  className="outline-none bg-transparent border-b-2 border-custom-white h-10"
+                  className="h-10 bg-transparent border-b-2 outline-none border-custom-white"
                   type="password"
                   name="password"
                   onChange={(e) => setPassword(e.target.value)}
                 />
-                <section className=" flex flex-col justify-center items-center">
+                <section className="flex flex-col items-center justify-center ">
                   <label className="mt-12" htmlFor="uploadFile">
                     Profile Picture:
-                    <AiOutlinePicture className="text-3xl inline mx-3" />
+                    <AiOutlinePicture className="inline mx-3 text-3xl" />
                   </label>
                   <input
-                    className="outline-none bg-transparent border-b-2 border-custom-white h-10 hidden"
+                    className="hidden h-10 bg-transparent border-b-2 outline-none border-custom-white"
                     type="file"
                     id="uploadFile"
                     name="picture"
                   />
                 </section>
-                <div className=" flex justify-center items-center my-3 ">
+                <div className="flex items-center justify-center my-3 ">
                   {" "}
                   <input
                     onChange={(e) => setIsChecked(e.target.checked)}
-                    className=" my-3 mx-3"
+                    className="mx-3 my-3 "
                     type="checkbox"
                   />
-                  <p className=" text-xs text-custom-white">
+                  <p className="text-xs  text-custom-white">
                     I agree to the{" "}
                     <a className="text-blue-500 underline" href="/">
                       terms and conditions
@@ -113,16 +113,16 @@ const Register: React.FC<Props> = ({ switchView, className }) => {
                 </div>
                 <button
                   type="submit"
-                  className="rounded-full bg-white text-custom-blue my-3 hover:bg-custom-blue hover:text-white transition duration-300 ease-in-out h-8 lg:h-12"
+                  className="h-8 my-3 transition duration-300 ease-in-out bg-white rounded-full text-custom-blue hover:bg-custom-blue hover:text-white lg:h-12"
                 >
                   SignUp
                 </button>
                 <button
-                  className=" group  hover:translate-x-1 transition-transform duration-200"
+                  className="transition-transform duration-200  group hover:translate-x-1"
                   onClick={() => switchView(true)}
                 >
                   Switch to Login{" "}
-                  <FaArrowRight className="inline mx-2 group-hover:translate-x-1 transition-transform duration-200" />
+                  <FaArrowRight className="inline mx-2 transition-transform duration-200 group-hover:translate-x-1" />
                 </button>
               </form>
             </div>
