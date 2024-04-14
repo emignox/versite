@@ -12,11 +12,7 @@ const cors = require("cors"); // Import cors
 app.use(express.json()); // Use express.json middleware
 
 const corsOptions = {
-  origin: [
-    process.env.CLIENT_URL,
-    process.env.CLIENT_URL_2,
-    process.env.BACKEND_URL,
-  ],
+  origin: [process.env.CLIENT_URL, process.env.CLIENT_URL_2],
   credentials: true,
   allowedHeaders: ["sessionId", "Content-Type"],
   exposedHeaders: ["sessionId"],
