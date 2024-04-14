@@ -40,7 +40,7 @@ const UpdateBio = () => {
   const handleBioSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const response = await fetch(
-      `http://localhost:5001/api/user/${userFromCtx?._id}`,
+      `${process.env.REACT_APP_API_URL}/user/${userFromCtx?._id}`,
       {
         method: "PUT",
         headers: {
@@ -66,25 +66,25 @@ const UpdateBio = () => {
     <div>
       {form ? (
         <form
-          className="flex flex-col justify-center items-center"
+          className="flex flex-col items-center justify-center"
           onSubmit={handleBioSubmit}
         >
           <label htmlFor="bio">Bio:</label>
           <textarea
-            className="w-full h-8 border-black my-2 p-2  "
+            className="w-full h-8 p-2 my-2 border-black "
             id="bio"
             onChange={(e) => setBio(e.target.value)}
             maxLength={150}
           ></textarea>
-          <div className="flex gap-3 justify-center items-center ">
+          <div className="flex items-center justify-center gap-3 ">
             <button
               type="submit"
-              className="bg-custom-blue text-white px-4 py-2 rounded"
+              className="px-4 py-2 text-white rounded bg-custom-blue"
             >
               Submit
             </button>
             <button
-              className="bg-gray-500 text-white px-4 py-2 rounded"
+              className="px-4 py-2 text-white bg-gray-500 rounded"
               onClick={() => setForm(false)}
             >
               cancel
@@ -92,7 +92,7 @@ const UpdateBio = () => {
           </div>
         </form>
       ) : (
-        <div className=" flex  justify-center items-center font-medium  gap-2  rounded  my-5">
+        <div className="flex items-center justify-center gap-2 my-5 font-medium rounded ">
           <h1>Bio:</h1>
           {userFromCtx?.bio}
           <FaPencilAlt onClick={() => setForm(true)} />

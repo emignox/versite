@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     const fetchUid = async () => {
       await axios
-        .get("http://localhost:5001/jwtid", {
+        .get(`${process.env.REACT_APP_API_URL}/jwtid`, {
           withCredentials: true,
         })
         .then((res) => {
@@ -36,7 +36,7 @@ function App() {
     if (useUidFromCtx !== null) {
       const fetchUser = async () => {
         await axios
-          .get(`http://localhost:5001/api/user/${useUidFromCtx}`)
+          .get(`${process.env.REACT_APP_API_URL}/user/${useUidFromCtx}`)
           .then((res) => {
             setUserInCtx(res.data);
           });

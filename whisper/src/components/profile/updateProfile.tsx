@@ -17,10 +17,13 @@ const Update = () => {
     data.append("name", userFromCtx?.username || "");
     data.append("userId", userFromCtx?._id || "");
     data.append("file", file as Blob);
-    const response = await fetch("http://localhost:5001/api/user/upload", {
-      method: "POST",
-      body: data,
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API_URL}/user/upload`,
+      {
+        method: "POST",
+        body: data,
+      }
+    );
     if (response.ok) {
       alert("Profile picture updated");
       window.location.reload();
@@ -30,23 +33,23 @@ const Update = () => {
   return (
     <>
       <Logo />
-      <div className=" flex justify-center  flex-col items-center mt-12   ">
-        <div className=" flex justify-center items-center p-2 space-y-3"></div>
+      <div className="flex flex-col items-center justify-center mt-12 ">
+        <div className="flex items-center justify-center p-2 space-y-3 "></div>
         <Follow />
         <form
-          className=" flex flex-col  justify-center items-center space-y-8 my-5  "
+          className="flex flex-col items-center justify-center my-5 space-y-8 "
           action=""
           onSubmit={handlePicture}
         >
           <img
-            className="rounded-full  w-2/6  h-2/6  mx-2 mt-5 -z-50   "
+            className="w-2/6 mx-2 mt-5 rounded-full h-2/6 -z-50 "
             src={`./client/public/${userFromCtx?.picture}`}
             alt=""
           />
           <button className="">
             <label
               htmlFor="file"
-              className="cursor-pointer bg-custom-blue text-white px-4 py-2 rounded hover:bg-custom-dark-blue"
+              className="px-4 py-2 text-white rounded cursor-pointer bg-custom-blue hover:bg-custom-dark-blue"
             >
               Change Profile image
             </label>
@@ -68,16 +71,16 @@ const Update = () => {
           {fileName && (
             <>
               <p>File selezionato: {fileName}</p>
-              <div className=" flex  gap-3">
+              <div className="flex gap-3 ">
                 <button
-                  className="bg-custom-blue text-white px-4 py-2 rounded"
+                  className="px-4 py-2 text-white rounded bg-custom-blue"
                   type="submit"
                 >
                   Send
                 </button>
 
                 <button
-                  className="bg-gray-500 text-white px-4 py-2 rounded"
+                  className="px-4 py-2 text-white bg-gray-500 rounded"
                   onClick={(e) => {
                     e.preventDefault();
                     setFile(null);

@@ -15,7 +15,7 @@ function Follow() {
   const [popFollowing, setPopFollowing] = useState(false);
 
   useEffect(() => {
-    fetch("http://localhost:5001/api/user", {
+    fetch(`${process.env.REACT_APP_API_URL}/user`, {
       headers: {
         "Content-Type": "application/json",
       },
@@ -34,9 +34,9 @@ function Follow() {
   }
 
   return (
-    <div className="  flex gap-2 bg-opacity-20 backdrop-blur text-black  bg-white font-bold w-96 rounded-2xl justify-around items-center h-12 my-5 ">
+    <div className="flex items-center justify-around h-12 gap-2 my-5 font-bold text-black bg-white  bg-opacity-20 backdrop-blur w-96 rounded-2xl">
       <div>
-        <h1 onClick={handleClickFollower} className=" ">
+        <h1 onClick={handleClickFollower} className="">
           {userFromCtx?.followers.length} Followers
         </h1>
         {pop
@@ -47,23 +47,23 @@ function Follow() {
               return ReactDOM.createPortal(
                 <div
                   key={index}
-                  className=" fixed top-0 left-0  backdrop-blur-xl z-50  h-screen inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+                  className="fixed inset-0 top-0 left-0 z-50 flex items-center justify-center h-screen bg-black bg-opacity-50  backdrop-blur-xl"
                 >
-                  <div className=" bg-custom-white   max-w-md p-4 rounded shadow-lg overflow-auto">
-                    <div className="flex justify-between items-center h-full w-full my-3">
+                  <div className="max-w-md p-4 overflow-auto rounded shadow-lg  bg-custom-white">
+                    <div className="flex items-center justify-between w-full h-full my-3">
                       <h1>FOLLOWERS</h1>
                       <button onClick={handleClose}>x</button>
                     </div>
-                    <div className="flex justify-start  pr-2 py-1  items-center w-full rounded-full border-black border-2 ">
+                    <div className="flex items-center justify-start w-full py-1 pr-2 border-2 border-black rounded-full ">
                       <img
-                        className="w-10 rounded-full h-10"
+                        className="w-10 h-10 rounded-full"
                         src={`./client/public/${follower?.picture} `}
                         alt=""
                       />
-                      <p className="text-black text-center  mx-3   ">
+                      <p className="mx-3 text-center text-black ">
                         {follower?.username}
                       </p>
-                      <button className="text-white bg-custom-blue  rounded-xl px-1 py-1 ">
+                      <button className="px-1 py-1 text-white bg-custom-blue rounded-xl ">
                         Follow
                       </button>
                     </div>
@@ -75,7 +75,7 @@ function Follow() {
           : null}
       </div>
       <div>
-        <h1 onClick={() => setPopFollowing(true)} className=" text-black">
+        <h1 onClick={() => setPopFollowing(true)} className="text-black ">
           {userFromCtx?.following.length} Following
         </h1>
         {popFollowing
@@ -86,23 +86,23 @@ function Follow() {
               return ReactDOM.createPortal(
                 <div
                   key={index}
-                  className=" fixed top-0 left-0  backdrop-blur-xl z-50  h-screen inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+                  className="fixed inset-0 top-0 left-0 z-50 flex items-center justify-center h-screen bg-black bg-opacity-50  backdrop-blur-xl"
                 >
-                  <div className=" bg-custom-white   max-w-md p-4 rounded shadow-lg overflow-auto">
-                    <div className="flex justify-between items-center h-full w-full my-3">
+                  <div className="max-w-md p-4 overflow-auto rounded shadow-lg  bg-custom-white">
+                    <div className="flex items-center justify-between w-full h-full my-3">
                       <h1>FOLLOWERS</h1>
                       <button onClick={() => setPopFollowing(false)}>x</button>
                     </div>
-                    <div className="flex justify-start  pr-2 py-1  items-center w-full rounded-full border-black border-2 ">
+                    <div className="flex items-center justify-start w-full py-1 pr-2 border-2 border-black rounded-full ">
                       <img
-                        className="w-10 rounded-full h-10 object-cover"
+                        className="object-cover w-10 h-10 rounded-full"
                         src={`./client/public/${following?.picture} `}
                         alt=""
                       />
-                      <p className="text-black text-center  mx-3    ">
+                      <p className="mx-3 text-center text-black ">
                         {following?.username}
                       </p>
-                      <button className="text-white bg-custom-blue  rounded-xl px-1 py-1 ">
+                      <button className="px-1 py-1 text-white bg-custom-blue rounded-xl ">
                         Follow
                       </button>
                     </div>
@@ -113,7 +113,7 @@ function Follow() {
             })
           : null}
       </div>
-      <h1 className=" text-black">{userFromCtx?.likes.length} Likes</h1>
+      <h1 className="text-black ">{userFromCtx?.likes.length} Likes</h1>
     </div>
   );
 }

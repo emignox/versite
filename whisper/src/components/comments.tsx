@@ -31,7 +31,7 @@ const Comments: React.FC<CommentProps> = ({ post }) => {
 
     try {
       const response = await fetch(
-        `http://localhost:5001/api/post/comment-post/${post._id}`,
+        `${process.env.REACT_APP_API_URL}/post/comment-post/${post._id}`,
         {
           method: "PATCH",
           headers: {
@@ -61,7 +61,7 @@ const Comments: React.FC<CommentProps> = ({ post }) => {
 
   return (
     <>
-      <div className="flex justify-center items-center">
+      <div className="flex items-center justify-center">
         {" "}
         <AiOutlineComment
           onClick={() => setForm(true)}
@@ -71,7 +71,7 @@ const Comments: React.FC<CommentProps> = ({ post }) => {
       </div>
 
       {form && (
-        <div className="fixed bottom-0 left-0 right-0 bg-white p-4 transform transition-transform duration-300 ease-in-out translate-y-full">
+        <div className="fixed bottom-0 left-0 right-0 p-4 transition-transform duration-300 ease-in-out transform translate-y-full bg-white">
           <form onSubmit={commentPost}>
             <input
               type="text"
@@ -79,15 +79,15 @@ const Comments: React.FC<CommentProps> = ({ post }) => {
               onChange={(e) => setCommentText(e.target.value)}
               placeholder="Write a comment..."
             />
-            <div className=" flex  justify-between items-center  ">
+            <div className="flex items-center justify-between ">
               <button
-                className=" bg-custom-blue px-2 text-white py-1 rounded-xl"
+                className="px-2 py-1 text-white bg-custom-blue rounded-xl"
                 type="submit"
               >
                 Submit
               </button>
               <button
-                className=" bg-custom-white px-2 py-1 rounded-xl"
+                className="px-2 py-1 bg-custom-white rounded-xl"
                 onClick={() => setForm(false)}
               >
                 cancel{" "}

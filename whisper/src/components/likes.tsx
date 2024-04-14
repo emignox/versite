@@ -53,11 +53,11 @@
 
 //   return (
 //     <>
-//       <div className=" flex justify-start items-center">
+//       <div className="flex items-center justify-start ">
 //         {likes.length}
 //         <h1 onClick={likePost}>
 //           {" "}
-//           <AiOutlineLike className=" text-black" />
+//           <AiOutlineLike className="text-black " />
 //         </h1>
 //       </div>
 //     </>
@@ -92,7 +92,7 @@ const Likes: React.FC<LikesCommentsProps> = ({ post }) => {
   const likePost = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5001/api/post/like-post/${post._id}`,
+        `${process.env.REACT_APP_API_URL}/post/like-post/${post._id}`,
         {
           method: "PATCH",
           headers: {
@@ -122,11 +122,11 @@ const Likes: React.FC<LikesCommentsProps> = ({ post }) => {
 
   return (
     <>
-      <div className=" flex justify-start items-center">
+      <div className="flex items-center justify-start ">
         {post.likers.length}
         <h1 onClick={likePost}>
           {" "}
-          <AiOutlineLike className=" text-black" />
+          <AiOutlineLike className="text-black " />
         </h1>
       </div>
     </>

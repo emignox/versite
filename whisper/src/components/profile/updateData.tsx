@@ -52,7 +52,7 @@ const UpdateUser = () => {
     console.log(body);
 
     const response = await fetch(
-      `http://localhost:5001/api/user/${userFromCtx?._id}`,
+      `${process.env.REACT_APP_API_URL}/user/${userFromCtx?._id}`,
       {
         method: "PUT",
         headers: {
@@ -77,29 +77,29 @@ const UpdateUser = () => {
     <div>
       {formUsername ? (
         <form
-          className="flex flex-col justify-center items-center"
+          className="flex flex-col items-center justify-center"
           onSubmit={handleUsernameSubmit}
         >
           <label htmlFor="username">Username:</label>
           <input
-            className="w-1/2 rounded-md border-2 border-transparent my-2 p-2"
+            className="w-1/2 p-2 my-2 border-2 border-transparent rounded-md"
             id="username"
             onChange={(e) => setUsername(e.target.value)}
             maxLength={30}
           ></input>
           {errorMessage && (
-            <p className=" text-red-500 font-medium my-1">{errorMessage}</p>
+            <p className="my-1 font-medium text-red-500 ">{errorMessage}</p>
           )}
 
-          <div className=" flex  gap-3">
+          <div className="flex gap-3 ">
             <button
               type="submit"
-              className="bg-custom-blue text-white px-4 py-2 rounded"
+              className="px-4 py-2 text-white rounded bg-custom-blue"
             >
               Submit
             </button>
             <button
-              className="bg-gray-500 text-white px-4 py-2 rounded"
+              className="px-4 py-2 text-white bg-gray-500 rounded"
               onClick={() => setFormUsername(false)}
             >
               cancel
@@ -107,7 +107,7 @@ const UpdateUser = () => {
           </div>
         </form>
       ) : (
-        <div className=" flex  justify-center items-center  gap-2  my-5 font-bold ">
+        <div className="flex items-center justify-center gap-2 my-5 font-bold ">
           <h1>Username:</h1>
           {userFromCtx?.username}
           <FaPencilAlt onClick={() => setFormUsername(true)} />
@@ -115,25 +115,25 @@ const UpdateUser = () => {
       )}
       {formEmail ? (
         <form
-          className="flex flex-col justify-center items-center"
+          className="flex flex-col items-center justify-center"
           onSubmit={handleEmailSubmit}
         >
           <label htmlFor="email">Email:</label>
           <input
-            className="w-1/2 rounded-md border-2 border-transparent my-2 p-2"
+            className="w-1/2 p-2 my-2 border-2 border-transparent rounded-md"
             id="email"
             onChange={(e) => setEmail(e.target.value)}
             maxLength={30}
           ></input>
-          <div className=" flex  gap-3">
+          <div className="flex gap-3 ">
             <button
               type="submit"
-              className="bg-custom-blue text-white px-4 py-2 rounded"
+              className="px-4 py-2 text-white rounded bg-custom-blue"
             >
               Submit
             </button>
             <button
-              className="bg-gray-500 text-white px-4 py-2 rounded"
+              className="px-4 py-2 text-white bg-gray-500 rounded"
               onClick={() => setFormEmail(false)}
             >
               cancel
@@ -141,7 +141,7 @@ const UpdateUser = () => {
           </div>
         </form>
       ) : (
-        <div className=" flex  justify-center items-center  gap-2  font-bold ">
+        <div className="flex items-center justify-center gap-2 font-bold ">
           <h1>Email:</h1>
           {userFromCtx?.email}
           <FaPencilAlt onClick={() => setFormEmail(true)} />

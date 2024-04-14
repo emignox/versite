@@ -48,14 +48,14 @@ const GetPost = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5001/api/post")
+      .get(`${process.env.REACT_APP_API_URL}/post`)
       .then((response) => {
         const posts = response.data;
         setPosts(posts);
 
         // Mappa gli ID degli utenti ai loro dettagli
         const userPromises = posts.map((post: Post) =>
-          axios.get(`http://localhost:5001/api/user/${post.posterId}`)
+          axios.get(`${process.env.REACT_APP_API_URL}/user/${post.posterId}`)
         );
 
         return Promise.all(userPromises);
@@ -74,14 +74,14 @@ const GetPost = () => {
   }, [posts]); // Aggiungi questo array vuoto
 
   return (
-    <div className=" pb-12">
+    <div className="pb-12 ">
       {posts.map((post: Post, index: number) => (
-        <div key={index} className=" flex justify-center items-center mt-12 ">
-          <div className="flex flex-col  justify-center items-center bg-opacity-20 backdrop-blur    w-72 bg-black p-5 m-4 rounded-lg lg:w-1/3">
-            <div className=" w-full flex justify-between items-start">
-              <h3 className=" text-start  flex  justify-start items-start">
+        <div key={index} className="flex items-center justify-center mt-12 ">
+          <div className="flex flex-col items-center justify-center p-5 m-4 bg-black rounded-lg bg-opacity-20 backdrop-blur w-72 lg:w-1/3">
+            <div className="flex items-start justify-between w-full ">
+              <h3 className="flex items-start justify-start text-start">
                 <img
-                  className="w-8 h-8 rounded-full object-cover mr-2  "
+                  className="object-cover w-8 h-8 mr-2 rounded-full "
                   src={`./client/public/${users[post.posterId]?.picture}`}
                   alt="Profile"
                 />
@@ -91,13 +91,13 @@ const GetPost = () => {
                 {getTimeDifference(post.createdAt)}
               </span>
             </div>
-            <h2 className=" text-start w-full my-2">{post.message}</h2>
+            <h2 className="w-full my-2 text-start">{post.message}</h2>
             <img
-              className=" rounded-md"
+              className="rounded-md "
               src={`./client/public/${post.picture} `}
               alt=""
             />{" "}
-            <div className="flex justify-between w-full items-center">
+            <div className="flex items-center justify-between w-full">
               <Like post={post} />
 
               <Comment post={post} />
