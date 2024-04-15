@@ -4,6 +4,8 @@ import { FaArrowLeft } from "react-icons/fa";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { FaArrowDown } from "react-icons/fa";
+
 interface Props {
   switchView: (arg0: boolean) => void;
   className: string;
@@ -92,6 +94,14 @@ const Login: React.FC<Props> = ({ switchView, className }) => {
                 >
                   SignIn
                 </button>
+                <div className="flex flex-col items-center justify-center py-2 group">
+                  <p className="text-xs g ">
+                    You don't have an account? click here
+                  </p>
+                  <p className="py-1 text-center transition-transform duration-200 group-hover:translate-y-1 ">
+                    <FaArrowDown className="text-xs " />{" "}
+                  </p>
+                </div>
                 <button
                   className="transition-transform duration-200 group hover:-translate-x-1"
                   onClick={() => switchView(false)}

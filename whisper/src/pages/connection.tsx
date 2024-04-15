@@ -3,7 +3,7 @@ import Login from "../components/log/login";
 import Register from "../components/log/register";
 
 function Connection() {
-  const [showLogin, setShowLogin] = useState(false);
+  const [showLogin, setShowLogin] = useState(true);
 
   // Check for JWT token every time the component is rendered
   useEffect(() => {
