@@ -43,7 +43,7 @@ const Update = () => {
         >
           <img
             className="w-2/6 mx-2 mt-5 rounded-full h-2/6 -z-50 "
-            src={`./client/public/${userFromCtx?.picture}`}
+            src={`/public/${userFromCtx?.picture}`}
             alt=""
           />
           <button className="">
