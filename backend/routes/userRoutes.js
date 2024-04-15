@@ -23,11 +23,7 @@ router.post("/upload", upload.single("file"), uploadcontroller.uploadProfil);
 
 router.get("/uploads/profil/:name", (req, res) => {
   const fileName = req.params.name;
-  const filePath = path.join(
-    __dirname,
-    "../client/public/uploads/profil/",
-    fileName
-  );
+  const filePath = path.join(__dirname, "../public/uploads/profil/", fileName);
   res.sendFile(filePath);
 });
 

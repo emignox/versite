@@ -12,7 +12,12 @@ const cors = require("cors");
 app.use(express.json());
 
 const corsOptions = {
-  origin: [process.env.CLIENT_URL, process.env.CLIENT_URL_2],
+  origin: [
+    process.env.CLIENT_URL,
+    process.env.CLIENT_URL_2,
+    process.env.CLIENT_URL_3,
+    process.env.CLIENT_URL_4,
+  ],
   credentials: true,
   allowedHeaders: ["sessionId", "Content-Type"],
   exposedHeaders: ["sessionId"],
