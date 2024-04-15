@@ -36,7 +36,6 @@ module.exports.uploadProfil = async (req, res) => {
         "..",
         "..",
         "whisper",
-        "client",
         "public",
         "uploads",
         "profil",
