@@ -82,7 +82,7 @@ const GetPost = () => {
               <h3 className="flex items-start justify-start text-start">
                 <img
                   className="object-cover w-8 h-8 mr-2 rounded-full "
-                  src={`./client/public/${users[post.posterId]?.picture}`}
+                  src={`${users[post.posterId]?.picture}`}
                   alt="Profile"
                 />
                 {users[post.posterId]?.username}
@@ -92,11 +92,7 @@ const GetPost = () => {
               </span>
             </div>
             <h2 className="w-full my-2 text-start">{post.message}</h2>
-            <img
-              className="rounded-md "
-              src={`./client/public/${post.picture} `}
-              alt=""
-            />{" "}
+            <img className="rounded-md " src={`${post.picture} `} alt="" />{" "}
             <div className="flex items-center justify-between w-full">
               <Like post={post} />
 
